@@ -10,46 +10,46 @@ import org.jenkins.plugins.audit2db.internal.data.BuildDetailsHibernateRepositor
 import org.jenkins.plugins.audit2db.reports.DbAuditReport;
 
 public abstract class AbstractDbAuditReport implements DbAuditReport {
-    private transient BuildDetailsRepository repository;
+  private transient BuildDetailsRepository repository;
 
-    public AbstractDbAuditReport() {
-	super();
-    }
+  public AbstractDbAuditReport() {
+    super();
+  }
 
-    @Override
-    public String getJenkinsHostname() {
-	return DbAuditUtil.getHostName();
-    }
+  @Override
+  public String getJenkinsHostname() {
+    return DbAuditUtil.getHostName();
+  }
 
-    @Override
-    public String getJenkinsIpAddr() {
-	return DbAuditUtil.getIpAddress();
-    }
+  @Override
+  public String getJenkinsIpAddr() {
+    return DbAuditUtil.getIpAddress();
+  }
 
-    @Override
-    public String getIconFileName() {
-	return "document.gif";
-    }
+  @Override
+  public String getIconFileName() {
+    return "document.gif";
+  }
 
-    @Override
-    public BuildDetailsRepository getRepository() {
-	if (null == repository) {
-	    repository = new BuildDetailsHibernateRepository(
-		    DbAuditPublisherImpl.getSessionFactory());
-	}
-	return repository;
+  @Override
+  public BuildDetailsRepository getRepository() {
+    if (null == repository) {
+      repository = new BuildDetailsHibernateRepository(
+        DbAuditPublisherImpl.getSessionFactory());
     }
+    return repository;
+  }
 
-    @Override
-    public void setRepository(final BuildDetailsRepository repository) {
-	if (repository != null) {
-	    this.repository = repository;
-	}
+  @Override
+  public void setRepository(final BuildDetailsRepository repository) {
+    if (repository != null) {
+      this.repository = repository;
     }
+  }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public Descriptor<DbAuditReport> getDescriptor() {
-	return Jenkins.getInstance().getDescriptorOrDie(getClass());
-    }
+  @Override
+                                  @SuppressWarnings("unchecked")
+  public Descriptor<DbAuditReport>getDescriptor() {
+    return Jenkins.getInstance().getDescriptorOrDie(getClass());
+  }
 }

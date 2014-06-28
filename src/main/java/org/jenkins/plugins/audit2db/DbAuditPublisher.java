@@ -15,15 +15,15 @@ import org.jenkins.plugins.audit2db.data.BuildDetailsRepository;
  * @author Marco Scata
  *
  */
-public interface DbAuditPublisher extends Describable<Publisher> {
-    /**
-     * @return the plugin descriptor.
-     */
-    @Override
-    BuildStepDescriptor<Publisher> getDescriptor();
+public interface DbAuditPublisher extends Describable<Publisher>{
+  /**
+   * @return the plugin descriptor.
+   */
+  @Override
+  BuildStepDescriptor<Publisher>getDescriptor();
 
-    /**
-     * @return a reference to the repository class.
-     */
-    BuildDetailsRepository getRepository();
+  /**
+   * @return a reference to the repository class.
+   */
+  BuildDetailsRepository        getRepository();
 }

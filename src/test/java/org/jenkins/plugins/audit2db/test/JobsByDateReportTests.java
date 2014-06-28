@@ -20,47 +20,53 @@ import org.junit.Test;
  *
  */
 public class JobsByDateReportTests {
-    @Test
-    public void matchingParametersShouldReturnNonEmptyResults() {
-	final JobsByDateReport report = new JobsByDateReportImpl();
-	report.setRepository(TestUtils.getTestRepository());
+  @Test
+  public void matchingParametersShouldReturnNonEmptyResults() {
+    final JobsByDateReport report = new JobsByDateReportImpl();
 
-	final Map<String, List<BuildDetails>> dataset = TestUtils
-		.createRandomDataset(DbAuditUtil.getHostName());
-	// no need to use transactions because the mem db will be dumped
-	// after each test run
-	for (final List<BuildDetails> detailsList : dataset.values()) {
-	    TestUtils.getTestRepository().saveBuildDetailsList(detailsList);
-	}
+    report.setRepository(TestUtils.getTestRepository());
 
-	final Map<String, List<BuildDetails>> results = report
-		.getProjectExecutions(
-			TestUtils.NOW, TestUtils.NOW);
+    final Map<String, List<BuildDetails> > dataset = TestUtils
+                                                     .createRandomDataset(
+      DbAuditUtil.getHostName());
 
-	Assert.assertFalse("Unexpected empty results", results.isEmpty());
+    // no need to use transactions because the mem db will be dumped
+    // after each test run
+    for (final List<BuildDetails>detailsList : dataset.values()) {
+      TestUtils.getTestRepository().saveBuildDetailsList(detailsList);
     }
 
-    @Test
-    public void invalidDateRangeShouldReturnEmptyResults() {
-	final JobsByDateReport report = new JobsByDateReportImpl();
-	report.setRepository(TestUtils.getTestRepository());
+    final Map<String, List<BuildDetails> > results = report
+                                                     .getProjectExecutions(
+      TestUtils.NOW, TestUtils.NOW);
 
-	final Map<String, List<BuildDetails>> dataset = TestUtils
-		.createRandomDataset(DbAuditUtil.getHostName());
-	// no need to use transactions because the mem db will be dumped
-	// after each test run
-	for (final List<BuildDetails> detailsList : dataset.values()) {
-	    TestUtils.getTestRepository().saveBuildDetailsList(detailsList);
-	}
+    Assert.assertFalse("Unexpected empty results", results.isEmpty());
+  }
 
-	Map<String, List<BuildDetails>> results = report
-		.getProjectExecutions(
-			TestUtils.YESTERDAY, TestUtils.YESTERDAY);
-	Assert.assertTrue("Unexpected results collection", results.isEmpty());
+  @Test
+  public void invalidDateRangeShouldReturnEmptyResults() {
+    final JobsByDateReport report = new JobsByDateReportImpl();
 
-	results = report
-		.getProjectExecutions(
-			TestUtils.TOMORROW, TestUtils.TOMORROW);
-	Assert.assertTrue("Unexpected results collection", results.isEmpty());
+    report.setRepository(TestUtils.getTestRepository());
+
+    final Map<String, List<BuildDetails> > dataset = TestUtils
+                                                     .createRandomDataset(
+      DbAuditUtil.getHostName());
+
+    // no need to use transactions because the mem db will be dumped
+    // after each test run
+    for (final List<BuildDetails>detailsList : dataset.values()) {
+      TestUtils.getTestRepository().saveBuildDetailsList(detailsList);
     }
+
+    Map<String, List<BuildDetails> > results = report
+                                               .getProjectExecutions(
+      TestUtils.YESTERDAY, TestUtils.YESTERDAY);
+    Assert.assertTrue("Unexpected results collection", results.isEmpty());
+
+    results = report
+              .getProjectExecutions(
+      TestUtils.TOMORROW, TestUtils.TOMORROW);
+    Assert.assertTrue("Unexpected results collection", results.isEmpty());
+  }
 }

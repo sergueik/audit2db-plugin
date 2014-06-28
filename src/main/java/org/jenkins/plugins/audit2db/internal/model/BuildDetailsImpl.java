@@ -399,7 +399,10 @@ public class BuildDetailsImpl implements BuildDetails {
 	this.node = resolveBuildNode(build.getBuiltOn());
 	this.id = String
 		.format("%s/%s/%s", this.node, this.name, build.getId());
+	LOGGER.log(Level.WARNING, "xxxxxxxxxxxxxxxx." );
+
 	this.parameters
 		.addAll(resolveBuildParameters(build.getBuildVariables()));
+	LOGGER.log(Level.WARNING, "yyyyyyyyyyyyyyyyyyy." );
     }
 }

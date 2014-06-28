@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package org.jenkins.plugins.audit2db.model;
 
@@ -8,52 +8,52 @@ import java.util.List;
 
 /**
  * Data model to map build details.
- * 
+ *
  * @author Marco Scata
- * 
+ *
  */
 public interface BuildDetails {
-    String getId();
+  String              getId();
 
-    void setId(String id);
+  void                setId(String id);
 
-    String getName();
+  String              getName();
 
-    void setName(String name);
+  void                setName(String name);
 
-    String getFullName();
+  String              getFullName();
 
-    void setFullName(String fullName);
+  void                setFullName(String fullName);
 
-    Date getStartDate();
+  Date                getStartDate();
 
-    void setStartDate(Date start);
+  void                setStartDate(Date start);
 
-    Date getEndDate();
+  Date                getEndDate();
 
-    void setEndDate(Date end);
+  void                setEndDate(Date end);
 
-    Long getDuration();
+  Long                getDuration();
 
-    void setDuration(Long duration);
+  void                setDuration(Long duration);
 
-    String getResult();
+  String              getResult();
 
-    void setResult(String result);
+  void                setResult(String result);
 
-    String getUserId();
+  String              getUserId();
 
-    void setUserId(String userId);
+  void                setUserId(String userId);
 
-    String getUserName();
+  String              getUserName();
 
-    void setUserName(String userName);
+  void                setUserName(String userName);
 
-    List<BuildParameter> getParameters();
+  List<BuildParameter>getParameters();
 
-    void setParameters(List<BuildParameter> params);
+  void                setParameters(List<BuildParameter>params);
 
-    BuildNode getNode();
+  BuildNode           getNode();
 
-    void setNode(BuildNode node);
+  void                setNode(BuildNode node);
 }

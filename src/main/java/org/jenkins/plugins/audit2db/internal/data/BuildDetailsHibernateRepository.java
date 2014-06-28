@@ -118,7 +118,8 @@ public class BuildDetailsHibernateRepository extends
      */
     @Override
     public BuildDetails getBuildDetailsById(final String id) {
-	return getHibernateTemplate().get(BuildDetailsImpl.class, id);
+	// return (org.jenkins.plugins.audit2db.model.BuildDetails) getHibernateTemplate().get(BuildDetailsImpl.class, id);
+	 return getHibernateTemplate().get(BuildDetailsImpl.class, id);
     }
 
     /**

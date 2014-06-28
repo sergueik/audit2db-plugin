@@ -15,13 +15,14 @@ import org.junit.Test;
  *
  */
 public class HibernateUtilTest {
-    @Test
-    public void checkDdlGeneration() throws IOException {
-	final String ddl = HibernateUtil.getSchemaDdl(
-		"org.hsqldb.jdbc.JDBCDriver",
-		"jdbc:hsqldb:mem:test",
-		"SA", "");
-	Assert.assertNotNull("Unexpected null DDL string", ddl);
-	Assert.assertFalse("Unexpected empty DDL string", ddl.isEmpty());
-    }
+  @Test
+  public void checkDdlGeneration() throws IOException {
+    final String ddl = HibernateUtil.getSchemaDdl(
+      "org.hsqldb.jdbc.JDBCDriver",
+      "jdbc:hsqldb:mem:test",
+      "SA", "");
+
+    Assert.assertNotNull("Unexpected null DDL string", ddl);
+    Assert.assertFalse("Unexpected empty DDL string", ddl.isEmpty());
+  }
 }

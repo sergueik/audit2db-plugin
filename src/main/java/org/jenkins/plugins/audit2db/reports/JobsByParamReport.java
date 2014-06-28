@@ -13,11 +13,13 @@ import org.jenkins.plugins.audit2db.model.BuildDetails;
  *
  */
 public interface JobsByParamReport extends DbAuditReport {
-    String getStartDateParam(String dateString);
+  String                          getStartDateParam(String dateString);
 
-    String getEndDateParam(String dateString);
+  String                          getEndDateParam(String dateString);
 
-    Map<String, List<BuildDetails>> getProjectExecutions(
-	    String paramName, String paramValue,
-	    String startDate, String endDate);
+  Map<String, List<BuildDetails> >getProjectExecutions(
+    String paramName,
+    String paramValue,
+    String startDate,
+    String endDate);
 }

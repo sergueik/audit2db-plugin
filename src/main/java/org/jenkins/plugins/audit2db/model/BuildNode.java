@@ -1,40 +1,40 @@
 /**
- * 
+ *
  */
 package org.jenkins.plugins.audit2db.model;
 
 /**
  * Data model to map node details.
- * 
+ *
  * @author Marco Scata
- * 
+ *
  */
 public interface BuildNode {
-    String getMasterAddress();
+  String getMasterAddress();
 
-    void setMasterAddress(String address);
+  void   setMasterAddress(String address);
 
-    String getMasterHostName();
+  String getMasterHostName();
 
-    void setMasterHostName(String hostName);
+  void   setMasterHostName(String hostName);
 
-    String getDisplayName();
+  String getDisplayName();
 
-    void setDisplayName(String displayName);
+  void   setDisplayName(String displayName);
 
-    String getUrl();
+  String getUrl();
 
-    void setUrl(String url);
+  void   setUrl(String url);
 
-    String getName();
+  String getName();
 
-    void setName(String name);
+  void   setName(String name);
 
-    String getDescription();
+  String getDescription();
 
-    void setDescription(String description);
+  void   setDescription(String description);
 
-    String getLabel();
+  String getLabel();
 
-    void setLabel(String label);
+  void   setLabel(String label);
 }
