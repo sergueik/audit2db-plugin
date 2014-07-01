@@ -11,14 +11,14 @@ import org.kohsuke.stapler.QueryParameter;
 public interface DbAuditPublisherDescriptor {
   /**
    * @return <code>true</code> if using a JNDI datasource, or <code>false</code>
-   ***for JDBC.
+   *for JDBC.
    */
   boolean        getUseJndi();
 
   /**
    * @param useJndi
    *            set to <code>true</code> to use a JNDI datasource, or
-   ***<code>false</code> for JDBC.
+   *<code>false</code> for JDBC.
    */
   void           setUseJndi(final boolean useJndi);
 
@@ -30,7 +30,7 @@ public interface DbAuditPublisherDescriptor {
   /**
    * @param jndiName
    *            <code>true</code> if using a JNDI datasource, or
-   ***<code>false</code> for JDBC.
+   *<code>false</code> for JDBC.
    */
   void           setJndiName(final String jndiName);
 

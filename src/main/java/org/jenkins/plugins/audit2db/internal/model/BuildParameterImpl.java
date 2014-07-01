@@ -5,11 +5,9 @@ package org.jenkins.plugins.audit2db.internal.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.FetchType;
-import javax.persistence.CascadeType;
-import javax.persistence.Id;
 
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
@@ -55,7 +53,7 @@ public class BuildParameterImpl implements BuildParameter {
 
   /**
    * @see
-   ***org.jenkins.plugins.audit2db.model.BuildParameter#setId(java.lang.String)
+   *org.jenkins.plugins.audit2db.model.BuildParameter#setId(java.lang.String)
    */
   @Override
   public void setId(final String id) {
@@ -73,7 +71,7 @@ public class BuildParameterImpl implements BuildParameter {
 
   /**
    * @see
-   ***org.jenkins.plugins.audit2db.model.BuildParameter#setName(java.lang.String)
+   *org.jenkins.plugins.audit2db.model.BuildParameter#setName(java.lang.String)
    */
   @Override
   public void setName(final String name) {
@@ -91,7 +89,7 @@ public class BuildParameterImpl implements BuildParameter {
 
   /**
    * @see
-   ***org.jenkins.plugins.audit2db.model.BuildParameter#setValue(java.lang.String)
+   *org.jenkins.plugins.audit2db.model.BuildParameter#setValue(java.lang.String)
    */
   @Override
   public void setValue(final String value) {
@@ -101,9 +99,7 @@ public class BuildParameterImpl implements BuildParameter {
   /**
    * @see org.jenkins.plugins.audit2db.model.BuildParameter#getBuildDetails()
    */
-  @ManyToOne(targetEntity = BuildDetailsImpl.class,
-             cascade = CascadeType.ALL,
-             fetch = FetchType.EAGER)
+  @ManyToOne(targetEntity = BuildDetailsImpl.class )
   @JoinColumn(nullable = false, unique = false)
   @Override
   public BuildDetails getBuildDetails() {
@@ -112,7 +108,7 @@ public class BuildParameterImpl implements BuildParameter {
 
   /**
    * @see
-   ***org.jenkins.plugins.audit2db.model.BuildParameter#setBuildDetails(java.lang.String)
+   *org.jenkins.plugins.audit2db.model.BuildParameter#setBuildDetails(java.lang.String)
    */
   @Override
   public void setBuildDetails(final BuildDetails buildDetails) {

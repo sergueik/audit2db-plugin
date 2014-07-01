@@ -4,6 +4,7 @@
 package org.jenkins.plugins.audit2db.internal.model;
 
 import hudson.model.AbstractBuild;
+import hudson.EnvVars;
 import hudson.model.Cause;
 import hudson.model.Cause.UserIdCause;
 import hudson.model.CauseAction;
@@ -20,6 +21,9 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import java.io.IOException;
+import java.lang.InterruptedException;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,6 +36,8 @@ import javax.persistence.OneToMany;
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildNode;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
+import org.jenkins.plugins.audit2db.model.BuildEnvironment;
+
 
 /**
  * Data class for build details.
@@ -53,6 +59,7 @@ public class BuildDetailsImpl implements BuildDetails {
     private String result;
     private String userId;
     private String userName;
+	private final List<BuildEnvironment> environment = new ArrayList<BuildEnvironment>();
     private final List<BuildParameter> parameters = new ArrayList<BuildParameter>();
     private BuildNode node = new BuildNodeImpl();
 
@@ -224,6 +231,14 @@ public class BuildDetailsImpl implements BuildDetails {
 	return parameters;
     }
 
+	
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = BuildEnvironmentImpl.class, mappedBy = "buildDetails")
+    @Column(nullable = true, unique = false)
+    @Override
+    public List<BuildEnvironment> getEnvironment() {
+	return environment;
+    }
+
     /**
      * @see org.jenkins.plugins.audit2db.model.BuildDetails#setParameters(java.util.List)
      */
@@ -232,13 +247,23 @@ public class BuildDetailsImpl implements BuildDetails {
 	if (null != params) {
 	    // need a temporary array otherwise hibernate
 	    // will clear the property bag too
-	    final BuildParameter[] tempParams = params
-		    .toArray(new BuildParameter[] {});
+	    final BuildParameter[] tempParams = params.toArray(new BuildParameter[] {});
 	    this.parameters.clear();
 	    Collections.addAll(this.parameters, tempParams);
 	}
     }
 
+	
+	@Override
+    public void setEnvironment(final List<BuildEnvironment> environment) {
+	if (null != environment) {
+	    // need a temporary array otherwise hibernate
+	    // will clear the property bag too
+	    final BuildEnvironment[] tempEnvironment = environment.toArray(new BuildEnvironment[] {});
+	    this.environment.clear();
+	    Collections.addAll(this.environment, tempEnvironment);
+	}
+    }
     /**
      * @see org.jenkins.plugins.audit2db.model.BuildDetails#getNode()
      */
@@ -285,6 +310,30 @@ public class BuildDetailsImpl implements BuildDetails {
 	return other.hashCode() == this.hashCode();
     }
 
+	
+	// http://javadoc.jenkins-ci.org/hudson/EnvVars.html
+	private List<BuildEnvironment> resolveBuildEnvironment(
+	    final EnvVars environment) {
+	final List<BuildEnvironment> retval = new ArrayList<BuildEnvironment>();
+	if (environment != null) {
+		    LOGGER.log(
+		    Level.SEVERE,
+		    "Adding environment.",  new Object[] {});
+
+	    for (final Map.Entry<String, String> environmentEntry : environment
+		    .entrySet()) {
+			
+					    LOGGER.log(
+		    Level.SEVERE,
+		    "Adding environment (3) " + environmentEntry.getKey(),  new Object[] {});
+
+		retval.add(new BuildEnvironmentImpl(String.format("%s@%s",
+			this.id, environmentEntry.getKey()), environmentEntry.getKey(), environmentEntry.getValue(), this));
+	    }
+	}
+
+	return retval;
+    }
     private List<BuildParameter> resolveBuildParameters(
 	    final Map<String, String> buildVariables) {
 	final List<BuildParameter> retval = new ArrayList<BuildParameter>();
@@ -352,7 +401,9 @@ public class BuildDetailsImpl implements BuildDetails {
     public BuildDetailsImpl(final String id, final String name,
 	    final String fullName, final Date startDate, final Date endDate,
 	    final long duration, final String userId, final String userName,
-	    final List<BuildParameter> parameters, final BuildNode node) {
+	    final List<BuildParameter> parameters, 
+		final List<BuildEnvironment> environment,
+		final BuildNode node) {
 	this.id = id;
 	this.name = name;
 	this.fullName = fullName;
@@ -364,6 +415,9 @@ public class BuildDetailsImpl implements BuildDetails {
 	if ((parameters != null) && !parameters.isEmpty()) {
 	    this.parameters.addAll(parameters);
 	}
+	if ((environment != null) && !environment.isEmpty()) {
+	    this.environment.addAll(environment);
+	}
 	this.node = node;
     }
 
@@ -374,7 +428,8 @@ public class BuildDetailsImpl implements BuildDetails {
      * @param build
      *            a valid Jenkins build object.
      */
-    public BuildDetailsImpl(final AbstractBuild<?, ?> build) {
+    public BuildDetailsImpl(final AbstractBuild<?, ?> build) 
+	{
 	// this.id = build.getId();
 	this.name = build.getRootBuild().getProject().getDisplayName();
 	this.fullName = build.getFullDisplayName();
@@ -399,10 +454,28 @@ public class BuildDetailsImpl implements BuildDetails {
 	this.node = resolveBuildNode(build.getBuiltOn());
 	this.id = String
 		.format("%s/%s/%s", this.node, this.name, build.getId());
-	LOGGER.log(Level.WARNING, "xxxxxxxxxxxxxxxx." );
-
 	this.parameters
 		.addAll(resolveBuildParameters(build.getBuildVariables()));
-	LOGGER.log(Level.WARNING, "yyyyyyyyyyyyyyyyyyy." );
+		
+				    LOGGER.log(
+		    Level.SEVERE,
+		    "Trying to save environment" ,new Object[]{});
+
+	try {	
+		this.environment.addAll(resolveBuildEnvironment(build.getEnvironment()));
+	} catch (IOException e ) {
+		    LOGGER.log(
+		    Level.SEVERE,
+		    "An error occurred : "
+			    + e.getMessage(), e);
+	} 
+	catch (InterruptedException e ) {
+	
+			    LOGGER.log(
+		    Level.SEVERE,
+		    "An error occurred : "
+			    + e.getMessage(), e);
+
+	}
     }
 }
