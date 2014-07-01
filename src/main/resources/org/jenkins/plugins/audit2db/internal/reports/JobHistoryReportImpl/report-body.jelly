@@ -11,9 +11,8 @@
 				<tr>
 					<th>${%Executed On}</th>
 					<th>${%Started}</th>
-					<th>${%Finished}</th>
-					<th>${%Status}</th>
 					<th>${%Started By}</th>
+					<th>${%Status}</th>
 					<th>${%Execution Parameters}</th>
 				</tr>
 				<j:forEach var="details" items="${execution.value}">
@@ -21,21 +20,21 @@
 						<td>${details.node.name}</td>
 						<!-- Cut the milliseconds part of the dates -->
 						<td><fmt:formatDate value="${details.startDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td>${details.endDate.toString().substring(0, 19)}</td>
-						<td>${details.result}</td>
 						<td>${details.userId}</td>
+						<td>${details.result}</td>
 						<td>
 							<table class="report-paramtable">
 								<j:forEach var="param" items="${details.parameters}">
 									<tr>
 										<td>${param.name}</td>
-										<td>=</td>
+									</tr>
+									<tr>
 										<td>${param.value}</td>
 									</tr>
-								</j:forEach>
-							</table>
-						</td>
-					</tr>
+							</j:forEach>
+						</table>
+					</td>	
+				</tr>	
 				</j:forEach>
 			</table>
 		</j:forEach>
