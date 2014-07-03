@@ -271,7 +271,7 @@
           <artifactId>maven-hpi-plugin</artifactId>
           <extensions>true</extensions>
           <configuration>
-            <pluginFirstClassLoader>true</pluginFirstClassLoader>
+            <pluginFirstClassLoader>false</pluginFirstClassLoader>
           </configuration>
         </plugin>
         <!--This plugin's configuration is used to store Eclipse m2e settings 
