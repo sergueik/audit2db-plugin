@@ -16,6 +16,9 @@ import org.jenkins.plugins.audit2db.internal.data.HibernateUtil;
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildNode;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
+import org.jenkins.plugins.audit2db.model.BuildEnvironment;
+
+
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.orm.hibernate3.HibernateTemplate;

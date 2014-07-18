@@ -1,42 +1,57 @@
-<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define"
-	xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form"
-	xmlns:fmt="jelly:fmt">
-	<!-- projectExecutions comes from index.jelly -->
-	<div id="reportResults">
-		<j:forEach var="execution" items="${projectExecutions}">
-			<div>
-				<div class="report-groupheader">${execution.key}</div>
-			</div>
-			<table class="report-table">
-				<tr>
-					<th>${%Executed On}</th>
-					<th>${%Started}</th>
-					<th>${%Started By}</th>
-					<th>${%Status}</th>
-					<th>${%Execution Parameters}</th>
-				</tr>
-				<j:forEach var="details" items="${execution.value}">
-					<tr>
-						<td>${details.node.name}</td>
-						<!-- Cut the milliseconds part of the dates -->
-						<td><fmt:formatDate value="${details.startDate}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-						<td>${details.userId}</td>
-						<td>${details.result}</td>
-						<td>
-							<table class="report-paramtable">
-								<j:forEach var="param" items="${details.parameters}">
-									<tr>
-										<td>${param.name}</td>
-									</tr>
-									<tr>
-										<td>${param.value}</td>
-									</tr>
-							</j:forEach>
-						</table>
-					</td>	
-				</tr>	
-				</j:forEach>
-			</table>
-		</j:forEach>
-    </div>
+<?xml version="1.0"?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form" xmlns:fmt="jelly:fmt">
+  <!-- projectExecutions comes from index.jelly -->
+  <div id="reportResults">
+    <j:forEach var="execution" items="${projectExecutions}">
+      <div>
+        <div class="report-groupheader">${execution.key}</div>
+      </div>
+      <table class="report-table">
+        <tr>
+          <th>${%Executed On}</th>
+          <th>${%Started}</th>
+          <th>${%Started By}</th>
+          <th>${%Status}</th>
+          <th>${%Execution Parameters}</th>
+          <th>${%Environment}</th>
+        </tr>
+        <j:forEach var="details" items="${execution.value}">
+          <tr>
+            <td>${details.node.name}</td>
+            <!-- Cut the milliseconds part of the dates -->
+            <td>
+              <fmt:formatDate value="${details.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
+            </td>
+            <td>${details.userId}</td>
+            <td>${details.result}</td>
+            <td>
+              <table class="report-paramtable">
+                <j:forEach var="param" items="${details.parameters}">
+                  <tr>
+                    <td>${param.name}</td>
+                  </tr>
+                  <tr>
+                    <td>${param.value}</td>
+                  </tr>
+                </j:forEach>
+              </table>
+            </td>
+            <td>
+              <table class="report-paramtable">
+                <j:forEach var="param" items="${details.environment}">
+                  <tr>
+                    <td>${param.name}</td>
+                  </tr>
+                  <tr>
+                    <td>${details.value.toString().substring(0, 30)}${param.value}</td>
+                  </tr>
+                </j:forEach>
+              </table>
+            </td>
+          </tr>
+        </j:forEach>
+      </table>
+    </j:forEach>
+  </div>
 </j:jelly>
+<!--</td> -->

@@ -104,7 +104,7 @@ public class WhenRunningJobsHistoryReport extends HudsonTestCase {
       WebAssert.assertInputContainsValue(page.getPage(), "endDate",
                                          DATE_FORMAT_NOTIME.format(
                                            expectedEndDate.getTime()));
-      WebAssert.assertInputContainsValue(page.getPage(), "jobName", "");
+      WebAssert.assertInputContainsValue(page.getPage(), "jobName", "%");
     } catch (final Exception e) {
       // expecting successful access
       e.printStackTrace();
