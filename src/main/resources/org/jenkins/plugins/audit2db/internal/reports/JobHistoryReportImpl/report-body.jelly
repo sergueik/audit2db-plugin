@@ -10,10 +10,10 @@
         <tr>
           <th>${%Executed On}</th>
           <th>${%Started}</th>
-          <th>${%Started By}</th>
+          <th>${%Finished}</th>
           <th>${%Status}</th>
+          <th>${%Started By}</th>
           <th>${%Execution Parameters}</th>
-          <th>${%Environment}</th>
         </tr>
         <j:forEach var="details" items="${execution.value}">
           <tr>
@@ -22,28 +22,16 @@
             <td>
               <fmt:formatDate value="${details.startDate}" pattern="yyyy-MM-dd HH:mm:ss"/>
             </td>
-            <td>${details.userId}</td>
+            <td>${details.endDate.toString().substring(0, 19)}</td>
             <td>${details.result}</td>
+            <td>${details.userId}</td>
             <td>
               <table class="report-paramtable">
                 <j:forEach var="param" items="${details.parameters}">
                   <tr>
                     <td>${param.name}</td>
-                  </tr>
-                  <tr>
+                    <td>=</td>
                     <td>${param.value}</td>
-                  </tr>
-                </j:forEach>
-              </table>
-            </td>
-            <td>
-              <table class="report-paramtable">
-                <j:forEach var="param" items="${details.environment}">
-                  <tr>
-                    <td>${param.name}</td>
-                  </tr>
-                  <tr>
-                    <td>${details.value.toString().substring(0, 30)}${param.value}</td>
                   </tr>
                 </j:forEach>
               </table>
@@ -54,4 +42,3 @@
     </j:forEach>
   </div>
 </j:jelly>
-<!--</td> -->
