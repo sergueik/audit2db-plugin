@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.460</version>
+    <version>1.580</version>
   </parent>
   <artifactId>audit2db</artifactId>
   <version>0.7-SNAPSHOT</version>
@@ -26,7 +26,6 @@
   </scm>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.jdk>1.6</version.jdk>
     <!-- Versions of project dependencies -->
     <version.cglib>2.2</version.cglib>
     <version.commons-io>1.4</version.commons-io>
@@ -45,15 +44,14 @@
     <version.mysql>5.1.24</version.mysql>
 
     <!-- Versions of Java compilation -->
-
-    <java.version>1.6</java.version> 
+    <version.jdk>1.6</version.jdk>
 
     <!-- Versions of Maven plugins -->
     <version.maven-dependency-plugin>2.5.1</version.maven-dependency-plugin>
     <version.maven-cobertura-plugin>2.5.1</version.maven-cobertura-plugin>
     <version.maven-pmd-plugin>2.5</version.maven-pmd-plugin>
     <version.maven-release-plugin>2.2</version.maven-release-plugin>
-    <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
+    <version.maven-compiler-plugin>2.0.2</version.maven-compiler-plugin>
     <java.version>1.6</java.version> 
 
   </properties>
@@ -206,6 +204,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
         <configuration>
           <source>${version.jdk}</source>
           <target>${version.jdk}</target>
@@ -273,20 +272,6 @@
           <tagNameFormat>@{project.version}</tagNameFormat>
         </configuration>
       </plugin>
-
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>${maven-compiler-plugin.version}</version>
-        <goals>
-          <goal>compile</goal>
-        </goals>
-        <configuration>
-          <source>${java.version}</source>
-          <target>${java.version}</target>
-        </configuration>
-      </plugin>
-
     </plugins>
     <pluginManagement>
       <plugins>
@@ -392,9 +377,7 @@
         <activeByDefault>true</activeByDefault>
       </activation>
       <dependencies>
-        <!--
-                    JDBC DRIVERS Used for testing only 
-                -->
+        <!-- JDBC DRIVERS Used for testing only  -->
         <dependency>
           <groupId>org.hsqldb</groupId>
           <artifactId>hsqldb</artifactId>
@@ -412,9 +395,7 @@
     <profile>
       <id>microsoft</id>
       <dependencies>
-        <!--
-                    JDBC DRIVERS Used for testing only 
-                -->
+        <!-- JDBC DRIVERS Used for testing only  -->
         <dependency>
           <groupId>com.microsoft.jdbc.sqlserver</groupId>
           <artifactId>sqljdbc4</artifactId>
@@ -426,9 +407,7 @@
     <profile>
       <id>oracle</id>
       <dependencies>
-        <!--
-                    JDBC DRIVERS Used for testing only 
-                -->
+        <!-- JDBC DRIVERS Used for testing only  -->
         <dependency>
           <groupId>com.oracle</groupId>
           <artifactId>ojdbc14</artifactId>
