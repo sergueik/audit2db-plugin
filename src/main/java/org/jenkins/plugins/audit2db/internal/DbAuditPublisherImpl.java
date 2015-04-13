@@ -111,16 +111,18 @@ public class DbAuditPublisherImpl extends Notifier implements DbAuditPublisher {
     details.setEndDate(new Date(details.getStartDate().getTime()
                                 + details.getDuration()));
     details.setResult(build.getResult().toString());
-
+    
     boolean result = false;
     try {
       getRepository().updateBuildDetails(details);
       LOGGER.log(Level.FINE,
                  "Updated build details with id=" + details.getId());
-      result = super.perform(build, launcher, listener);
+      // result = super.perform(build, launcher, listener);
+      result = true;
     } catch (final Throwable t) {
       LOGGER.log(Level.SEVERE, t.getMessage(), t);
     }
+    
     return result;
   }
 
