@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.jenkins-ci.plugins</groupId>
     <artifactId>plugin</artifactId>
-    <version>1.597</version>
+    <version>1.640</version>
   </parent>
   <artifactId>audit2db</artifactId>
   <version>0.6-SNAPSHOT</version>
@@ -41,10 +41,10 @@
     <version.hsqldb>2.0.0</version.hsqldb>
     <version.sqljdbc>3.0</version.sqljdbc>
     <version.ojdbc14>10.2.0.2.0</version.ojdbc14>
-    <version.mysql>5.1.24</version.mysql>
+    <version.mysql>5.1.35</version.mysql>
 
     <!-- Versions of Java compilation -->
-    <version.jdk>1.6</version.jdk>
+    <version.jdk>1.7</version.jdk>
 
     <!-- Versions of Maven plugins -->
     <version.maven-dependency-plugin>2.5.1</version.maven-dependency-plugin>
@@ -52,7 +52,7 @@
     <version.maven-pmd-plugin>2.5</version.maven-pmd-plugin>
     <version.maven-release-plugin>2.2</version.maven-release-plugin>
     <version.maven-compiler-plugin>2.0.2</version.maven-compiler-plugin>
-    <java.version>1.6</java.version> 
+    
 
   </properties>
   <developers>
