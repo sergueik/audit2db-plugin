@@ -25,7 +25,9 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
  */
 public class HibernateUtil {
     private final static Logger LOGGER = Logger.getLogger(HibernateUtil.class.getName());
-
+    
+    private static SessionFactory retval = null;
+    
     private static Configuration getConfig(final Properties extraProperties) throws HibernateException {
         LOGGER.log(Level.INFO, Messages.HibernateUtil_LoadConfig());
         final Configuration config = new AnnotationConfiguration().configure();
@@ -38,7 +40,9 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory(final Properties extraProperties) {
-        SessionFactory retval = null;
+        if (retval != null) {
+            return retval;
+        }
 
         try {
             // Load base configuration from hibernate.cfg.xml
