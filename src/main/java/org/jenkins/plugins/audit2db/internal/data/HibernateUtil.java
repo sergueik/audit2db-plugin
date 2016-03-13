@@ -26,7 +26,7 @@ import org.hibernate.tool.hbm2ddl.SchemaExport;
 public class HibernateUtil {
     private final static Logger LOGGER = Logger.getLogger(HibernateUtil.class.getName());
     
-    private static SessionFactory retval = null;
+    private static SessionFactory _sessionFactory = null;
     
     private static Configuration getConfig(final Properties extraProperties) throws HibernateException {
         LOGGER.log(Level.INFO, Messages.HibernateUtil_LoadConfig());
@@ -40,21 +40,18 @@ public class HibernateUtil {
     }
 
     public static SessionFactory getSessionFactory(final Properties extraProperties) {
-        if (retval != null) {
-            return retval;
-        }
-
+      if (_sessionFactory == null) {
         try {
             // Load base configuration from hibernate.cfg.xml
             final Configuration config = getConfig(extraProperties);
-            retval = config.buildSessionFactory();
+            _sessionFactory = config.buildSessionFactory();
         } catch (final Exception e) {
             // Make sure you log the exception, as it might be swallowed
             LOGGER.log(Level.SEVERE, Messages.HibernateUtil_FailedSessionFactory(), e);
             throw new RuntimeException(e);
         }
-
-        return retval;
+      }
+      return _sessionFactory;
     }
 
     public static SessionFactory getSessionFactory() {
