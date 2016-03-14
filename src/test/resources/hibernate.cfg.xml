@@ -20,7 +20,6 @@
     <property name="use_sql_comments">true</property>
     <mapping class="org.jenkins.plugins.audit2db.internal.model.BuildDetailsImpl"/>
     <mapping class="org.jenkins.plugins.audit2db.internal.model.BuildParameterImpl"/>
-    <mapping class="org.jenkins.plugins.audit2db.internal.model.BuildEnvironmentImpl"/>
     <mapping class="org.jenkins.plugins.audit2db.internal.model.BuildNodeImpl"/>
   </session-factory>
 </hibernate-configuration>

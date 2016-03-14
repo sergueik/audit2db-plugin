@@ -11,20 +11,20 @@ public abstract class AbstractHibernateRepository {
     private final SessionFactory sessionFactory;
 
     public AbstractHibernateRepository(final SessionFactory sessionFactory) {
-	this.sessionFactory = sessionFactory;
-	this.hibernateTemplate.setSessionFactory(sessionFactory);
-	this.transactionManager.setSessionFactory(sessionFactory);
+      this.sessionFactory = sessionFactory;
+      this.hibernateTemplate.setSessionFactory(sessionFactory);
+      this.transactionManager.setSessionFactory(sessionFactory);
     }
 
     public HibernateTemplate getHibernateTemplate() {
-	return hibernateTemplate;
+      return hibernateTemplate;
     }
 
     public SessionFactory getSessionFactory() {
-	return sessionFactory;
+      return sessionFactory;
     }
 
     public HibernateTransactionManager getTransactionManager() {
-	return transactionManager;
+      return transactionManager;
     }
 }

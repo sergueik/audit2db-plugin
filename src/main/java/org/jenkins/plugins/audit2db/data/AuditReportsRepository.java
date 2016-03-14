@@ -26,9 +26,7 @@ public interface AuditReportsRepository {
    *            the end (inclusive) of the date range.
    * @return a list of project names, never <code>null</code>.
    */
-  List<String>getProjectNames(String masterHostName,
-                              Date   fromDate,
-                              Date   toDate);
+  List<String>getProjectNames(String masterHostName, Date fromDate, Date toDate);
 
   /**
    * Retrieves the build details for all job instances that ran on the
@@ -44,9 +42,7 @@ public interface AuditReportsRepository {
    * @return a list of build details matching the specified criteria. Never
    *         <code>null</code>.
    */
-  List<BuildDetails>getBuildDetails(String masterHostName,
-                                    Date   fromDate,
-                                    Date   toDate);
+  List<BuildDetails>getBuildDetails(String masterHostName, Date fromDate, Date toDate);
 
   /**
    * Retrieves the build details for all job instances that ran on the
@@ -64,9 +60,5 @@ public interface AuditReportsRepository {
    * @return a list of build details matching the specified criteria. Never
    *         <code>null</code>.
    */
-  List<BuildDetails>getBuildDetails(
-    String masterHostName,
-    String projectName,
-    Date   fromDate,
-    Date   toDate);
+  List<BuildDetails>getBuildDetails( String masterHostName, String projectName, Date fromDate, Date toDate);
 }

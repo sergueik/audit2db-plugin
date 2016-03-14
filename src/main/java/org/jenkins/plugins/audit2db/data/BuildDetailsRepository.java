@@ -23,7 +23,7 @@ public interface BuildDetailsRepository {
    *            the details to save.
    * @return the entity id.
    */
-  Object            saveBuildDetails(BuildDetails details);
+  Object saveBuildDetails(BuildDetails details);
 
   /**
    * Creates new entities in the repository according to the given list of
@@ -32,7 +32,7 @@ public interface BuildDetailsRepository {
    * @param details
    *            the collection of details to save.
    */
-  void              saveBuildDetailsList(List<BuildDetails>details);
+  void saveBuildDetailsList(List<BuildDetails>details);
 
   /**
    * Retrieves previously saved build details that match the given id.
@@ -41,7 +41,7 @@ public interface BuildDetailsRepository {
    *            the build details id.
    * @return the matching build details if found, otherwise <code>null</code>.
    */
-  BuildDetails      getBuildDetailsById(String id);
+  BuildDetails getBuildDetailsById(String id);
 
   /**
    * Retrieves previously saved build details that match the given name.
@@ -73,8 +73,7 @@ public interface BuildDetailsRepository {
    * @return a list of matching build details if found, otherwise an empty
    *         list.
    */
-  List<BuildDetails>getBuildDetailsByDateRange(Date start,
-                                               Date end);
+  List<BuildDetails>getBuildDetailsByDateRange(Date start, Date end);
 
   /**
    * Retrieves previously saved build details whose duration in seconds falls
@@ -87,8 +86,7 @@ public interface BuildDetailsRepository {
    * @return a list of matching build details if found, otherwise an empty
    *         list.
    */
-  List<BuildDetails>getBuildDetailsByDurationRange(long min,
-                                                   long max);
+  List<BuildDetails>getBuildDetailsByDurationRange(long min, long max);
 
   /**
    * Retrieves previously saved build details that match the given user id.
@@ -127,11 +125,7 @@ public interface BuildDetailsRepository {
    * @return a list of build details matching the specified criteria. Never
    *         <code>null</code>.
    */
-  List<BuildDetails>getBuildDetailsByParams(String masterHostName,
-                                            String paramName,
-                                            String paramValue,
-                                            Date   fromDate,
-                                            Date   toDate);
+  List<BuildDetails>getBuildDetailsByParams(String masterHostName, String paramName, String paramValue, Date fromDate, Date toDate);
 
   /**
    * Updates a previously saved build using the given build details.
@@ -139,7 +133,7 @@ public interface BuildDetailsRepository {
    * @param details
    *            the updated build details.
    */
-  void         updateBuildDetails(BuildDetails details);
+  void updateBuildDetails(BuildDetails details);
 
   /**
    * Retrieves the build node that matches the given url.
@@ -149,7 +143,7 @@ public interface BuildDetailsRepository {
    *
    * @return the matching node if found, otherwise <code>null</code>.
    */
-  BuildNode    getBuildNodeByUrl(String url);
+  BuildNode getBuildNodeByUrl(String url);
 
   /**
    * Retrieves the build details for the given Jenkins build.
@@ -173,9 +167,7 @@ public interface BuildDetailsRepository {
    *            the end (inclusive) of the date range.
    * @return a list of project names, never <code>null</code>.
    */
-  List<String> getProjectNames(String masterHostName,
-                               Date   fromDate,
-                               Date   toDate);
+  List<String> getProjectNames(String masterHostName, Date fromDate, Date toDate);
 
   /**
    * Retrieves a list of all the projects registered with the specified
@@ -192,10 +184,7 @@ public interface BuildDetailsRepository {
    *            the end (inclusive) of the date range.
    * @return a list of project names, never <code>null</code>.
    */
-  List<String>getProjectNames(String masterHostName,
-                              String pattern,
-                              Date   fromDate,
-                              Date   toDate);
+  List<String>getProjectNames(String masterHostName, String pattern, Date fromDate, Date toDate);
 
   /**
    * Retrieves the build details for all job instances that ran on the
@@ -211,9 +200,7 @@ public interface BuildDetailsRepository {
    * @return a list of build details matching the specified criteria. Never
    *         <code>null</code>.
    */
-  List<BuildDetails>getBuildDetails(String masterHostName,
-                                    Date   fromDate,
-                                    Date   toDate);
+  List<BuildDetails>getBuildDetails(String masterHostName, Date fromDate, Date toDate);
 
   /**
    * Retrieves the build details for all job instances that ran on the
@@ -231,8 +218,5 @@ public interface BuildDetailsRepository {
    * @return a list of build details matching the specified criteria. Never
    *         <code>null</code>.
    */
-  List<BuildDetails>getBuildDetails(String masterHostName,
-                                    String projectName,
-                                    Date   fromDate,
-                                    Date   toDate);
+  List<BuildDetails>getBuildDetails(String masterHostName, String projectName, Date fromDate, Date toDate);
 }

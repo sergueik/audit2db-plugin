@@ -32,9 +32,9 @@ public class HibernateUtil {
         LOGGER.log(Level.INFO, Messages.HibernateUtil_LoadConfig());
         final Configuration config = new AnnotationConfiguration().configure();
         if ((extraProperties != null) && !extraProperties.isEmpty()) {
-            LOGGER.log(Level.FINE, Messages.HibernateUtil_SettingExtraProps());
-            LOGGER.log(Level.FINE, extraProperties.toString());
-            config.addProperties(extraProperties);
+          LOGGER.log(Level.FINE, Messages.HibernateUtil_SettingExtraProps());
+          LOGGER.log(Level.FINE, extraProperties.toString());
+          config.addProperties(extraProperties);
         }
         return config;
     }
@@ -58,47 +58,36 @@ public class HibernateUtil {
         return getSessionFactory(null);
     }
 
-    public static Properties getExtraProperties(
-            final String driverClass,
-            final String driverUrl,
-            final String username,
-            final String password) {
-        final Properties props = new Properties();
-        props.put("hibernate.connection.driver_class", driverClass);
-        props.put("hibernate.connection.url", driverUrl);
-        props.put("hibernate.connection.username", username);
-        props.put("hibernate.connection.password", password);
+    public static Properties getExtraProperties(final String driverClass, final String driverUrl, final String username, final String password) {
+      final Properties props = new Properties();
+      props.put("hibernate.connection.driver_class", driverClass);
+      props.put("hibernate.connection.url", driverUrl);
+      props.put("hibernate.connection.username", username);
+      props.put("hibernate.connection.password", password);
 
-        return props;
+      return props;
     }
 
-    public static String getSchemaDdl(
-            final String driverClass,
-            final String driverUrl,
-            final String username,
-            final String password) throws IOException {
-        String retval = null;
+    public static String getSchemaDdl( final String driverClass, final String driverUrl, final String username, final String password) throws IOException {
+      String retval = null;
+      final Properties props = getExtraProperties( driverClass, driverUrl, username, password);
+      final SessionFactory sessionFactory = getSessionFactory(props);
+      final String dialect = ((SessionFactoryImplementor)sessionFactory).getDialect().toString();
+      props.put("hibernate.dialect", dialect);
 
-        final Properties props = getExtraProperties(
-                driverClass, driverUrl, username, password);
-        final SessionFactory sessionFactory = getSessionFactory(props);
-        final String dialect = ((SessionFactoryImplementor)sessionFactory).getDialect().toString();
-        props.put("hibernate.dialect", dialect);
+      final Configuration config = getConfig(props);
+      final SchemaExport generator = new SchemaExport(config);
+      final File tempDdlFile = File.createTempFile("jenkins_audit2db", ".ddl");
+      generator.setOutputFile(tempDdlFile.getPath());
+      generator.setFormat(true);
+      generator.execute(true, false, false, true);
 
-        final Configuration config = getConfig(props);
-        final SchemaExport generator = new SchemaExport(config);
-        final File tempDdlFile = File.createTempFile("jenkins_audit2db", ".ddl");
-        generator.setOutputFile(tempDdlFile.getPath());
-        generator.setFormat(true);
-        generator.execute(true, false, false, true);
+      final Scanner scanner = new Scanner(tempDdlFile);
+      //using a non-matching delimiter will read the whole file
+      scanner.useDelimiter("\\Z");
+      retval = String.format(Messages.HibernateUtil_GeneratedNote(), dialect, scanner.next());
+      tempDdlFile.delete();
 
-        final Scanner scanner = new Scanner(tempDdlFile);
-        //using a non-matching delimiter will read the whole file
-        scanner.useDelimiter("\\Z");
-        retval = String.format(Messages.HibernateUtil_GeneratedNote(),
-                dialect, scanner.next());
-        tempDdlFile.delete();
-
-        return retval;
+      return retval;
     }
 }

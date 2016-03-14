@@ -6,12 +6,9 @@ import junit.framework.Assert;
 
 import org.jenkins.plugins.audit2db.internal.model.BuildDetailsImpl;
 import org.jenkins.plugins.audit2db.internal.model.BuildParameterImpl;
-import org.jenkins.plugins.audit2db.internal.model.BuildEnvironmentImpl;
 
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
-import org.jenkins.plugins.audit2db.model.BuildEnvironment;
-
 
 import org.junit.Test;
 
@@ -24,11 +21,11 @@ import org.junit.Test;
 public class BuildParameterImplTests {
     private final BuildDetails details = new BuildDetailsImpl(
             "BUILDID", "BUILD NAME", "BUILD_FULLNAME", new Date(),
-            new Date(), 10L, "USERID", "USERNAME", null, null, null);
+            new Date(), 10L, "USERID", "USERNAME", null, null);
 
     private final BuildDetails otherDetails = new BuildDetailsImpl(
             "BUILDIDXXX", "BUILD NAME", "BUILD_FULLNAME", new Date(),
-            new Date(), 10L, "USERID", "USERNAME", null, null, null);
+            new Date(), 10L, "USERID", "USERNAME", null, null);
 
     private final BuildParameter expected = new BuildParameterImpl(
             "PARAM_ID", "PARAM NAME", "PARAM VALUE", details);

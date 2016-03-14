@@ -36,6 +36,4 @@ public interface BuildDetails {
   void                  setParameters(List<BuildParameter>params);
   BuildNode             getNode();
   void                  setNode(BuildNode node);
-  List<BuildEnvironment>getEnvironment();
-  void                  setEnvironment(List<BuildEnvironment>environment);
 }

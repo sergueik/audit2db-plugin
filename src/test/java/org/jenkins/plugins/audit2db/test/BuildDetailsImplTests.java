@@ -9,11 +9,9 @@ import junit.framework.Assert;
 
 import org.jenkins.plugins.audit2db.internal.model.BuildDetailsImpl;
 import org.jenkins.plugins.audit2db.internal.model.BuildParameterImpl;
-import org.jenkins.plugins.audit2db.internal.model.BuildEnvironmentImpl;
 
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
-import org.jenkins.plugins.audit2db.model.BuildEnvironment;
 
 import org.junit.Test;
 

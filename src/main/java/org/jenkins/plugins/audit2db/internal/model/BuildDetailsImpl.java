@@ -36,7 +36,6 @@ import javax.persistence.OneToMany;
 import org.jenkins.plugins.audit2db.model.BuildDetails;
 import org.jenkins.plugins.audit2db.model.BuildNode;
 import org.jenkins.plugins.audit2db.model.BuildParameter;
-import org.jenkins.plugins.audit2db.model.BuildEnvironment;
 
 
 /**
@@ -59,7 +58,6 @@ public class BuildDetailsImpl implements BuildDetails {
     private String result;
     private String userId;
     private String userName;
-	private final List<BuildEnvironment> environment = new ArrayList<BuildEnvironment>();
     private final List<BuildParameter> parameters = new ArrayList<BuildParameter>();
     private BuildNode node = new BuildNodeImpl();
 
@@ -70,7 +68,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = false, unique = true)
     @Override
     public String getId() {
-	return id;
+      return id;
     }
 
     /**
@@ -78,7 +76,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setId(final String id) {
-	this.id = id;
+      this.id = id;
     }
 
     /**
@@ -87,7 +85,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Override
     @Column(nullable = false, unique = false)
     public String getName() {
-	return name;
+      return name;
     }
 
     /**
@@ -95,7 +93,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setName(final String name) {
-	this.name = name;
+      this.name = name;
     }
 
     /**
@@ -104,7 +102,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = false, unique = false)
     @Override
     public String getFullName() {
-	return fullName;
+      return fullName;
     }
 
     /**
@@ -112,7 +110,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setFullName(final String fullName) {
-	this.fullName = fullName;
+      this.fullName = fullName;
     }
 
     /**
@@ -121,7 +119,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = false, unique = false)
     @Override
     public Date getStartDate() {
-	return startDate;
+      return startDate;
     }
 
     /**
@@ -129,7 +127,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setStartDate(final Date start) {
-	this.startDate = start;
+      this.startDate = start;
     }
 
     /**
@@ -138,7 +136,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public Date getEndDate() {
-	return endDate;
+      return endDate;
     }
 
     /**
@@ -146,7 +144,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setEndDate(final Date end) {
-	this.endDate = end;
+      this.endDate = end;
     }
 
     /**
@@ -155,7 +153,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public Long getDuration() {
-	return duration;
+      return duration;
     }
 
     /**
@@ -163,7 +161,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setDuration(final Long duration) {
-	this.duration = duration;
+      this.duration = duration;
     }
 
     /**
@@ -173,7 +171,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public String getResult() {
-	return result;
+      return result;
     }
 
     /**
@@ -181,9 +179,9 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setResult(final String result) {
-	if (result != null) {
-	    this.result = result.toString();
-	}
+      if (result != null) {
+        this.result = result.toString();
+      }
     }
 
     /**
@@ -192,7 +190,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public String getUserId() {
-	return userId;
+      return userId;
     }
 
     /**
@@ -200,7 +198,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setUserId(final String userId) {
-	this.userId = userId;
+      this.userId = userId;
     }
 
     /**
@@ -209,7 +207,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public String getUserName() {
-	return userName;
+      return userName;
     }
 
     /**
@@ -217,8 +215,7 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setUserName(final String userName) {
-	this.userName = userName;
-
+      this.userName = userName;
     }
 
     /**
@@ -228,15 +225,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @Column(nullable = true, unique = false)
     @Override
     public List<BuildParameter> getParameters() {
-	return parameters;
-    }
-
-	
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = BuildEnvironmentImpl.class, mappedBy = "buildDetails")
-    @Column(nullable = true, unique = false)
-    @Override
-    public List<BuildEnvironment> getEnvironment() {
-	return environment;
+      return parameters;
     }
 
     /**
@@ -244,26 +233,16 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setParameters(final List<BuildParameter> params) {
-	if (null != params) {
-	    // need a temporary array otherwise hibernate
-	    // will clear the property bag too
-	    final BuildParameter[] tempParams = params.toArray(new BuildParameter[] {});
-	    this.parameters.clear();
-	    Collections.addAll(this.parameters, tempParams);
-	}
+      if (null != params) {
+        // need a temporary array otherwise hibernate
+        // will clear the property bag too
+        final BuildParameter[] tempParams = params.toArray(new BuildParameter[] {});
+        this.parameters.clear();
+        Collections.addAll(this.parameters, tempParams);
+      }
     }
 
 	
-	@Override
-    public void setEnvironment(final List<BuildEnvironment> environment) {
-	if (null != environment) {
-	    // need a temporary array otherwise hibernate
-	    // will clear the property bag too
-	    final BuildEnvironment[] tempEnvironment = environment.toArray(new BuildEnvironment[] {});
-	    this.environment.clear();
-	    Collections.addAll(this.environment, tempEnvironment);
-	}
-    }
     /**
      * @see org.jenkins.plugins.audit2db.model.BuildDetails#getNode()
      */
@@ -271,7 +250,7 @@ public class BuildDetailsImpl implements BuildDetails {
     @JoinColumn(nullable = true, unique = false)
     @Override
     public BuildNode getNode() {
-	return node;
+      return node;
     }
 
     /**
@@ -279,95 +258,59 @@ public class BuildDetailsImpl implements BuildDetails {
      */
     @Override
     public void setNode(final BuildNode node) {
-	this.node = node;
+      this.node = node;
     }
 
     @Override
     public String toString() {
-	return String.format("%s [%s]", this.fullName, this.id);
+      return String.format("%s [%s]", this.fullName, this.id);
     }
 
     @Override
     public int hashCode() {
-	return this.id.hashCode();
+      return this.id.hashCode();
     }
 
     @Override
     public boolean equals(final Object obj) {
-	// fail-fast logic
-	if (this == obj) {
-	    return true;
-	}
-	if (null == obj) {
-	    return false;
-	}
-	if (!(obj instanceof BuildDetails)) {
-	    return false;
-	}
-
-	final BuildDetails other = (BuildDetails) obj;
-
-	return other.hashCode() == this.hashCode();
+      // fail-fast logic
+      if (this == obj) {
+        return true;
+      }
+      if (null == obj) {
+        return false;
+      }
+      if (!(obj instanceof BuildDetails)) {
+        return false;
+      }
+      final BuildDetails other = (BuildDetails) obj;
+      return other.hashCode() == this.hashCode();
     }
 
-	
-	// http://javadoc.jenkins-ci.org/hudson/EnvVars.html
-	private List<BuildEnvironment> resolveBuildEnvironment(
-	    final EnvVars environment) {
-	final List<BuildEnvironment> retval = new ArrayList<BuildEnvironment>();
-	if (environment != null) {
-		    LOGGER.log(
-		    Level.SEVERE,
-		    "Adding environment.",  new Object[] {});
-
-	    for (final Map.Entry<String, String> environmentEntry : environment
-		    .entrySet()) {
-			
-					    LOGGER.log(
-		    Level.SEVERE,
-		    "Adding environment (3) " + environmentEntry.getKey(),  new Object[] {});
-
-		retval.add(new BuildEnvironmentImpl(String.format("%s@%s",
-			this.id, environmentEntry.getKey()), environmentEntry.getKey(), environmentEntry.getValue(), this));
-	    }
-	}
-
-	return retval;
-    }
     private List<BuildParameter> resolveBuildParameters(
 	    final Map<String, String> buildVariables) {
-	final List<BuildParameter> retval = new ArrayList<BuildParameter>();
-	if (buildVariables != null) {
-	    for (final Map.Entry<String, String> buildVariable : buildVariables
-		    .entrySet()) {
-		retval.add(new BuildParameterImpl(String.format("%s@%s",
-			this.id, buildVariable.getKey()), buildVariable
-			.getKey(), buildVariable.getValue(), this));
-	    }
-	}
-
-	return retval;
+      final List<BuildParameter> retval = new ArrayList<BuildParameter>();
+      if (buildVariables != null) {
+        for (final Map.Entry<String, String> buildVariable : buildVariables.entrySet()) {
+        retval.add(new BuildParameterImpl(String.format("%s@%s", this.id, buildVariable.getKey()), buildVariable.getKey(), buildVariable.getValue(), this));
+          }
+      }
+      return retval;
     }
 
     private BuildNode resolveBuildNode(final Node node) {
-	String address = "UNKNOWN";
-	String hostname = "UNKNOWN";
-	try {
-	    final InetAddress iaddr = InetAddress.getLocalHost();
-	    address = iaddr.getHostAddress();
-	    hostname = iaddr.getHostName();
-	} catch (final UnknownHostException e) {
-	    LOGGER.log(
-		    Level.SEVERE,
-		    "An error occurred while trying to resolve the master's network name and address: "
-			    + e.getMessage(), e);
-	}
-	final Computer computer = node.toComputer();
-	final BuildNode retval = new BuildNodeImpl(address, hostname,
-		computer.getDisplayName(), String.format("%s/%s", hostname,
-			computer.getUrl()), node.getNodeName(),
-		node.getNodeDescription(), node.getLabelString());
-	return retval;
+      String address = "UNKNOWN";
+      String hostname = "UNKNOWN";
+      try {
+        final InetAddress iaddr = InetAddress.getLocalHost();
+        address = iaddr.getHostAddress();
+        hostname = iaddr.getHostName();
+      } catch (final UnknownHostException e) {
+          LOGGER.log( Level.SEVERE, "An error occurred while trying to resolve the master's network name and address: " + e.getMessage(), e);
+      }
+      final Computer computer = node.toComputer();
+      final BuildNode retval = new BuildNodeImpl(address, hostname, computer.getDisplayName(), String.format("%s/%s", hostname, computer.getUrl()), node.getNodeName(), node.getNodeDescription(), node.getLabelString());
+      return retval;
     }
 
     /**
@@ -398,27 +341,19 @@ public class BuildDetailsImpl implements BuildDetails {
      * @param parameters
      *            the build parameters (if any).
      */
-    public BuildDetailsImpl(final String id, final String name,
-	    final String fullName, final Date startDate, final Date endDate,
-	    final long duration, final String userId, final String userName,
-	    final List<BuildParameter> parameters, 
-		final List<BuildEnvironment> environment,
-		final BuildNode node) {
-	this.id = id;
-	this.name = name;
-	this.fullName = fullName;
-	this.startDate = startDate;
-	this.endDate = endDate;
-	this.duration = duration;
-	this.userId = userId;
-	this.userName = userName;
-	if ((parameters != null) && !parameters.isEmpty()) {
-	    this.parameters.addAll(parameters);
-	}
-	if ((environment != null) && !environment.isEmpty()) {
-	    this.environment.addAll(environment);
-	}
-	this.node = node;
+    public BuildDetailsImpl(final String id, final String name, final String fullName, final Date startDate, final Date endDate, final long duration, final String userId, final String userName, final List<BuildParameter> parameters, final BuildNode node) {
+      this.id = id;
+      this.name = name;
+      this.fullName = fullName;
+      this.startDate = startDate;
+      this.endDate = endDate;
+      this.duration = duration;
+      this.userId = userId;
+      this.userName = userName;
+      if ((parameters != null) && !parameters.isEmpty()) {
+        this.parameters.addAll(parameters);
+      }
+      this.node = node;
     }
 
     /**
@@ -428,54 +363,29 @@ public class BuildDetailsImpl implements BuildDetails {
      * @param build
      *            a valid Jenkins build object.
      */
-    public BuildDetailsImpl(final AbstractBuild<?, ?> build) 
-	{
-	// this.id = build.getId();
-	this.name = build.getRootBuild().getProject().getDisplayName();
-	this.fullName = build.getFullDisplayName();
-	this.startDate = build.getTime();
+  public BuildDetailsImpl(final AbstractBuild<?, ?> build) {
+    // this.id = build.getId();
+    this.name = build.getRootBuild().getProject().getDisplayName();
+    this.fullName = build.getFullDisplayName();
+    this.startDate = build.getTime();
 
-	final List<CauseAction> actions = build.getActions(CauseAction.class);
-	boolean userFound = false;
-	for (final CauseAction action : actions) {
-	    for (final Cause cause : action.getCauses()) {
-		if (cause instanceof UserIdCause) {
-		    userFound = true;
-		    this.userId = ((UserIdCause) cause).getUserId();
-		    this.userName = ((UserIdCause) cause).getUserName();
-		    break;
-		}
-	    }
-	    if (userFound) {
-			break;
-	    }
-	}
-
-	this.node = resolveBuildNode(build.getBuiltOn());
-	this.id = String
-		.format("%s/%s/%s", this.node, this.name, build.getId());
-	this.parameters
-		.addAll(resolveBuildParameters(build.getBuildVariables()));
-		
-				    LOGGER.log(
-		    Level.SEVERE,
-		    "Trying to save environment" ,new Object[]{});
-
-	try {	
-		this.environment.addAll(resolveBuildEnvironment(build.getEnvironment()));
-	} catch (IOException e ) {
-		    LOGGER.log(
-		    Level.SEVERE,
-		    "An error occurred : "
-			    + e.getMessage(), e);
-	} 
-	catch (InterruptedException e ) {
-	
-			    LOGGER.log(
-		    Level.SEVERE,
-		    "An error occurred : "
-			    + e.getMessage(), e);
-
-	}
+    final List<CauseAction> actions = build.getActions(CauseAction.class);
+    boolean userFound = false;
+    for (final CauseAction action : actions) {
+          for (final Cause cause : action.getCauses()) {
+        if (cause instanceof UserIdCause) {
+            userFound = true;
+            this.userId = ((UserIdCause) cause).getUserId();
+            this.userName = ((UserIdCause) cause).getUserName();
+            break;
+        }
+      }
+      if (userFound) {
+        break;
+      }
     }
+    this.node = resolveBuildNode(build.getBuiltOn());
+    this.id = String.format("%s/%s/%s", this.node, this.name, build.getId());
+    this.parameters.addAll(resolveBuildParameters(build.getBuildVariables()));		
+  }
 }

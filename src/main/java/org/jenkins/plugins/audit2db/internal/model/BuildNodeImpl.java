@@ -79,7 +79,7 @@ public class BuildNodeImpl implements BuildNode {
    * @see org.jenkins.plugins.audit2db.model.BuildNode#getUrl()
    */
   @Id
-                @Column(nullable = false, unique = true)
+  @Column(nullable = false, unique = true)
   @Override
   public String getUrl() {
     return url;
@@ -201,19 +201,13 @@ public class BuildNodeImpl implements BuildNode {
    * @param label
    *            the node label.
    */
-  public BuildNodeImpl(final String address,
-                       final String hostName,
-                       final String displayName,
-                       final String url,
-                       final String name,
-                       final String description,
-                       final String label) {
-    this.address     = address;
-    this.hostName    = hostName;
+  public BuildNodeImpl(final String address, final String hostName, final String displayName, final String url, final String name, final String description, final String label) {
+    this.address = address;
+    this.hostName = hostName;
     this.displayName = displayName;
-    this.url         = url;
-    this.name        = name;
+    this.url = url;
+    this.name = name;
     this.description = description;
-    this.label       = label;
+    this.label = label;
   }
 }
