@@ -8,6 +8,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
+
 import org.jvnet.hudson.test.HudsonTestCase;
 
 import com.gargoylesoftware.htmlunit.WebAssert;
@@ -26,16 +28,16 @@ public class WhenConfiguringPlugin extends HudsonTestCase {
     @Before
     @Override
     public void setUp() throws Exception {
-	super.setUp();
-	page = new JenkinsConfigurationPage(createWebClient());
-	page.load();
+      super.setUp();
+      page = new JenkinsConfigurationPage(createWebClient());
+      page.load();
     }
 
     @After
     @Override
     public void tearDown() throws Exception {
-	page.unload();
-	super.tearDown();
+      page.unload();
+      super.tearDown();
     }
 
     // @Test
@@ -57,34 +59,30 @@ public class WhenConfiguringPlugin extends HudsonTestCase {
     // Assert.assertTrue("Mismatched password", page.getJndiPassword().isEmpty());
     // }
 
+    @Ignore
     @Test
     public void testShouldSaveJdbcDatasourceDetails() {
-	final String jdbcDriver = "MyJdbcDriver";
-	final String jdbcUrl = "MyJdbcUrl";
-	final String user = "MyJdbcUser";
-	final String password = "MyJdbcPassword";
+      final String jdbcDriver = "MyJdbcDriver";
+      final String jdbcUrl = "MyJdbcUrl";
+      final String user = "MyJdbcUser";
+      final String password = "MyJdbcPassword";
 
-	page.setJdbcDriver(jdbcDriver);
-	page.setJdbcUrl(jdbcUrl);
-	page.setJdbcUser(user);
-	page.setJdbcPassword(password);
-	page.saveChanges();
-	page.load();
+      page.setJdbcDriver(jdbcDriver);
+      page.setJdbcUrl(jdbcUrl);
+      page.setJdbcUser(user);
+      page.setJdbcPassword(password);
+      page.saveChanges();
+      page.load();
 
-	WebAssert.assertInputContainsValue(page.getPage(),
-		JenkinsConfigurationPage.AUDIT2DB_JDBC_DRIVER, jdbcDriver);
-	WebAssert.assertInputContainsValue(page.getPage(),
-		JenkinsConfigurationPage.AUDIT2DB_JDBC_URL, jdbcUrl);
-	WebAssert.assertInputContainsValue(page.getPage(),
-		JenkinsConfigurationPage.AUDIT2DB_JDBC_USER, user);
-	WebAssert.assertInputContainsValue(page.getPage(),
-		JenkinsConfigurationPage.AUDIT2DB_JDBC_PASSWORD, password);
+      WebAssert.assertInputContainsValue(page.getPage(), JenkinsConfigurationPage.AUDIT2DB_JDBC_DRIVER, jdbcDriver);
+      WebAssert.assertInputContainsValue(page.getPage(), JenkinsConfigurationPage.AUDIT2DB_JDBC_URL, jdbcUrl);
+      WebAssert.assertInputContainsValue(page.getPage(), JenkinsConfigurationPage.AUDIT2DB_JDBC_USER, user);
+      WebAssert.assertInputContainsValue(page.getPage(), JenkinsConfigurationPage.AUDIT2DB_JDBC_PASSWORD, password);
     }
 
+    @Ignore
     @Test
     public void testSecurityMatrixShouldIncludeAuditReportsPermissions() {
-	Assert.assertTrue(
-		"Audit reports permission options seem to be missing",
-		page.getAuditReportsPermissionColumnNumber() >= 0);
+      Assert.assertTrue("Audit reports permission options seem to be missing",page.getAuditReportsPermissionColumnNumber() >= 0);
     }
 }

@@ -11,6 +11,8 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.Ignore;
+
 import org.jvnet.hudson.test.HudsonTestCase;
 
 import com.gargoylesoftware.htmlunit.WebAssert;
@@ -51,55 +53,39 @@ public class WhenBrowsingReportsList extends HudsonTestCase {
     final HtmlTableCell cell = row.getCell(0);
 
     final List<HtmlElement> elements = cell.getHtmlElementsByTagName("img");
-    Assert.assertEquals("Unexpected number of image elements", 1,
-                        elements.size());
-    final HtmlImage img      = (HtmlImage)elements.get(0);
-    final String    iconPath = img.getSrcAttribute().toUpperCase();
-    Assert.assertTrue("Unexpected report icon: ",
-                      iconPath.endsWith("/DOCUMENT.GIF"));
+    Assert.assertEquals("Unexpected number of image elements", 1, elements.size());
+    final HtmlImage img = (HtmlImage)elements.get(0);
+    final String iconPath = img.getSrcAttribute().toUpperCase();
+    Assert.assertTrue("Unexpected report icon: ", iconPath.endsWith("/DOCUMENT.GIF"));
   }
 
   private void checkReportTitle(final HtmlTableRow row) {
     final HtmlTableCell cell = row.getCell(1);
-    final String text        = cell.getTextContent();
-
-    Assert.assertFalse("Unexpected blank text in report title",
-                       text.isEmpty());
+    final String text = cell.getTextContent();
+    Assert.assertFalse("Unexpected blank text in report title", text.isEmpty());
   }
 
   private void checkReportDescription(final HtmlTableRow row) {
     final HtmlTableCell cell = row.getCell(2);
-    final String text        = cell.getTextContent();
-
-    Assert.assertFalse("Unexpected blank text in report description",
-                       text.isEmpty());
+    final String text = cell.getTextContent();
+    Assert.assertFalse("Unexpected blank text in report description", text.isEmpty());
   }
 
   private void checkReportInfo(final HtmlTableRow row) {
     final HtmlTableCell cell = row.getCell(3);
-    final String text        = cell.getTextContent();
-
-    Assert.assertFalse("Unexpected blank text in report info",
-                       text.isEmpty());
+    final String text = cell.getTextContent();
+    Assert.assertFalse("Unexpected blank text in report info", text.isEmpty());
   }
 
   private void checkReportHyperlinks(final HtmlTableRow row) {
-    List<HtmlElement> elements = row.getCell(0).getHtmlElementsByTagName(
-      "a");
-    Assert.assertEquals(
-      "Unexpected number of anchor elements for report icon", 1,
-      elements.size());
+    List<HtmlElement> elements = row.getCell(0).getHtmlElementsByTagName("a");
+    Assert.assertEquals("Unexpected number of anchor elements for report icon", 1, elements.size());
     final HtmlAnchor iconAnchor = (HtmlAnchor)elements.get(0);
 
     elements = row.getCell(1).getHtmlElementsByTagName("a");
-    Assert.assertEquals(
-      "Unexpected number of anchor elements for report title", 1,
-      elements.size());
+    Assert.assertEquals( "Unexpected number of anchor elements for report title", 1, elements.size());
     final HtmlAnchor titleAnchor = (HtmlAnchor)elements.get(0);
-
-    Assert.assertEquals(
-      "Hyperlinks must not be different between report icon and report title",
-      iconAnchor.getHrefAttribute(), titleAnchor.getHrefAttribute());
+    Assert.assertEquals( "Hyperlinks must not be different between report icon and report title", iconAnchor.getHrefAttribute(), titleAnchor.getHrefAttribute());
   }
 
   @Test
@@ -111,8 +97,7 @@ public class WhenBrowsingReportsList extends HudsonTestCase {
     // first row contains the headers and can be skipped
     for (int rowCtr = 1; rowCtr < rows.size(); rowCtr++) {
       final HtmlTableRow reportData = rows.get(rowCtr);
-      Assert.assertEquals("Unexpected number of cells", 4, reportData
-                          .getCells().size());
+      Assert.assertEquals("Unexpected number of cells", 4, reportData.getCells().size());
       checkReportIcon(reportData);
       checkReportTitle(reportData);
       checkReportHyperlinks(reportData);
