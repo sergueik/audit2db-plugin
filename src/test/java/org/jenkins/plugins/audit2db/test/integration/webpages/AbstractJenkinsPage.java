@@ -42,8 +42,18 @@ public abstract class AbstractJenkinsPage {
               "A valid HudsonTestCase.WebClient object must be provided");
     }
 
-    this.webClient = client;
-    this.webClient.setTimeout(60000);
+    public AbstractJenkinsPage(final WebClient client, final String urlPath) {
+	if (null == client) {
+	    throw new IllegalArgumentException(
+		    "A valid HudsonTestCase.WebClient object must be provided");
+	}
+
+	this.webClient = client;
+	this.webClient.setJavaScriptTimeout(60000);
+
+	if ((null == urlPath) || urlPath.isEmpty()) {
+	    throw new IllegalArgumentException("Page URL path must be provided");
+	}
 
     if ((null == urlPath) || urlPath.isEmpty()) {
       throw new IllegalArgumentException("Page URL path must be provided");

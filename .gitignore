@@ -11,3 +11,4 @@
 /settings.xml
 *.unc-backup~
 *.uncrustify
+/.classpath
