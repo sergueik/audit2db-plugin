@@ -35,13 +35,6 @@ public abstract class AbstractJenkinsPage {
     return page;
   }
 
-  public AbstractJenkinsPage(final WebClient client,
-                             final String    urlPath) {
-    if (null == client) {
-      throw new IllegalArgumentException(
-              "A valid HudsonTestCase.WebClient object must be provided");
-    }
-
     public AbstractJenkinsPage(final WebClient client, final String urlPath) {
 	if (null == client) {
 	    throw new IllegalArgumentException(

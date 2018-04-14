@@ -59,5 +59,4 @@ public class JobsByDateReportPage extends AbstractJenkinsPage {
 	    throw new RuntimeException(e);
 	}
     }
-  }
 }
